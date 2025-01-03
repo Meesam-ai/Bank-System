@@ -1,12 +1,8 @@
-import os
+ import os
 
 def create_account(name, initial_balance=0.0):
    
-    account = {
-        "name": name,
-        "balance": initial_balance,
-        "transactions": []
-    }
+    account = {"name": name,"balance": initial_balance,"transactions": []}
     save_transactions(account)
     print(f"Account for {name} created with balance ${initial_balance:.2f}.")
     return account
@@ -14,7 +10,7 @@ def create_account(name, initial_balance=0.0):
 def deposit(account, amount):
     
     if amount <= 0:
-        print("Deposit amount must be positive.")
+        print("Please Enter a Valid amount.")
         return account
     
     account["balance"] += amount
@@ -26,7 +22,7 @@ def deposit(account, amount):
 def withdraw(account, amount):
    
     if amount <= 0:
-        print("Withdrawal amount must be positive.")
+        print("Please Enter a Valid amount.")
         return account
 
     if amount > account["balance"]:
@@ -68,7 +64,7 @@ def load_transactions(name):
    
     filename = f"{name.replace(' ', '_').lower()}_transactions.txt"
     if not os.path.exists(filename):
-        print("No account file found. Starting fresh.")
+        print("Account not Availaible.")
         return create_account(name)
 
     with open(filename, "r") as file:
@@ -98,45 +94,45 @@ def main():
         print("4. Check Balance")
         print("5. Print Transaction Statement")
         print("6. Exit")
-        choice = input("Enter your choice: ")
+        choice = input("Please Select an option: ")
 
         if choice == "1":
-            name = input("Enter your name: ")
-            initial_balance = float(input("Enter initial balance (default 0): ") or 0)
+            name = input("Enter your name Here: ")
+            initial_balance = 0
             account = create_account(name, initial_balance)
 
         elif choice == "2":
             if account:
-                amount = float(input("Enter amount to deposit: "))
+                amount = float(input("How much amount you want to deposit: "))
                 account = deposit(account, amount)
             else:
-                print("Please create an account first.")
+                print("Please create an account by selecting option 1.")
 
         elif choice == "3":
             if account:
-                amount = float(input("Enter amount to withdraw: "))
+                amount = float(input("How much amount you want to withdraw: "))
                 account = withdraw(account, amount)
             else:
-                print("Please create an account first.")
+                print("Please create an account by selecting option 1.")
 
         elif choice == "4":
             if account:
                 check_balance(account)
             else:
-                print("Please create an account first.")
+                print("Please create an account by selecting option 1.")
 
         elif choice == "5":
             if account:
                 print_statement(account)
             else:
-                print("Please create an account first.")
+                print("Please create an account by selecting option 1.")
 
         elif choice == "6":
-            print("Exiting the Banking System. Goodbye!")
+            print("Thank You for Giving us your time. Goodbye!")
             break
 
         else:
-            print("Invalid choice. Please try again.")
+            print("Invalid option. Please try again.")
 
 if __name__ == "__main__":
     main()
